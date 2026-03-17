@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WoW Launcher</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Custom window frame -->
+        <div class="window-frame">
+            <div class="window-title">
+                <img src="../../assets/icon.png" alt="Logo" class="window-icon">
+                <span>World of Warcraft Launcher</span>
+                <span class="version-display" id="version-display" style="margin-left: 10px; font-size: 11px; opacity: 0.7;">v1.2.4</span>
+            </div>
+            <div class="window-controls">
+                <button class="window-control" id="minimize-btn">─</button>
+                <button class="window-control" id="maximize-btn">□</button>
+                <button class="window-control close" id="close-btn">✕</button>
+            </div>
+        </div>
+
+        <!-- Main content area -->
+        <div class="main-container">
+            <!-- Header Bar -->
+            <div class="header-bar" id="header-bar"></div>
+
+            <!-- Sidebar -->
+            <div class="content">
+                <!-- Sidebar Container -->
+                <div class="sidebar-container">
+                    <div class="sidebar">
+                        <div class="realm-status" id="realm-status">
+                            <h3>Realm Status</h3>
+                            <div class="realm-info">
+                                <span class="status-indicator offline"></span>
+                                <span class="realm-name">Checking...</span>
+                            </div>
+                        </div>
+
+                        <nav class="nav-menu">
+                            <button class="nav-item active" data-view="home">
+                                <span class="nav-icon">🏠</span> Home
+                            </button>
+                            <button class="nav-item" data-view="characters">
+                                <span class="nav-icon">👤</span> Characters
+                            </button>
+                            <button class="nav-item" data-view="shop">
+                                <span class="nav-icon">🛒</span> Shop
+                            </button>
+                            <button class="nav-item" data-view="news">
+                                <span class="nav-icon">📰</span> News
+                            </button>
+                            <button class="nav-item" data-view="updates">
+                                <span class="nav-icon">⬇️</span> Updates
+                            </button>
+                            <button class="nav-item" data-view="settings">
+                                <span class="nav-icon">⚙️</span> Settings
+                            </button>
+                        </nav>
+
+                        <div class="user-section" id="user-section">
+                            <!-- Login button will be shown when not authenticated -->
+                            <div class="login-prompt" id="login-prompt">
+                                <button class="btn btn-login" id="login-btn">
+                                    <span class="login-icon">👤</span> Login
+                                </button>
+                                <p class="login-text">Sign in to access your characters</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Content area -->
+                <!-- Login View -->
+                <div class="view" id="login-view">
+                    <div class="login-container">
+                        <div class="login-header">
+                            <h1>Welcome to WoW Launcher</h1>
+                            <p class="login-subtitle">Sign in to access your characters and join the adventure</p>
+                        </div>
+                        
+                        <div class="auth-forms-container">
+                            <form id="login-form" class="auth-form">
+                                <h2 class="form-title">Login to Your Account</h2>
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                                </div>
+                                <div class="form-group checkbox remember-me">
+                                    <label>
+                                        <input type="checkbox" id="remember-me" name="rememberMe">
+                                        <span class="checkmark"></span>
+                                        Remember me and auto-login next time
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-large btn-login-main">
+                                    <span class="login-icon">🔑</span> Login to Game
+                                </button>
+                                <div class="auth-options">
+                                    <button type="button" class="btn btn-link" id="clear-saved-login" style="display: none;">
+                                        Clear Saved Login
+                                    </button>
+                                </div>
+                                <p class="auth-switch">
+                                    Don't have an account? 
+                                    <a href="#" id="show-register" class="auth-link">Create one here</a>
+                                </p>
+                            </form>
+
+                            <form id="register-form" class="auth-form" style="display: none;">
+                                <h2 class="form-title">Create New Account</h2>
+                                <div class="form-group">
+                                    <label for="reg-username">Username</label>
+                                    <input type="text" id="reg-username" name="username" placeholder="Choose a username" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reg-email">Email</label>
+                                    <input type="email" id="reg-email" name="email" placeholder="Enter your email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reg-password">Password</label>
+                                    <input type="password" id="reg-password" name="password" placeholder="Create a password" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reg-password-confirm">Confirm Password</label>
+                                    <input type="password" id="reg-password-confirm" name="passwordConfirm" placeholder="Confirm your password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-large btn-register-main">
+                                    <span class="register-icon">✨</span> Create Account
+                                </button>
+                                <p class="auth-switch">
+                                    Already have an account? 
+                                    <a href="#" id="show-login" class="auth-link">Sign in here</a>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Home View -->
+                <div class="view" id="home-view" style="display: none;">
+                    <div class="home-content">
+                        <div class="welcome-section">
+                            <h1>Welcome back, <span id="username-display"></span>!</h1>
+                            <button class="btn btn-large btn-play" id="play-button">
+                                <span class="play-icon">▶</span> PLAY
+                            </button>
+                        </div>
+                        
+                        <div class="quick-stats">
+                            <div class="stat-card">
+                                <h3>Total Characters</h3>
+                                <p id="total-characters">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Highest Level</h3>
+                                <p id="highest-level">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Total Playtime</h3>
+                                <p id="total-playtime">0h</p>
+                            </div>
+                        </div>
+
+                        <div class="recent-news">
+                            <h2>Recent News</h2>
+                            <div id="recent-news-list">
+                                <!-- Will be populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Characters View -->
+                <div class="view" id="characters-view" style="display: none;">
+                    <div class="characters-content">
+                        <h1>My Characters</h1>
+                        <div class="characters-grid" id="characters-grid">
+                            <!-- Will be populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shop View -->
+                <div class="view" id="shop-view" style="display: none;">
+                    <div class="shop-content">
+                        <h1>Shop</h1>
+                        
+                        <!-- Character Selection for Payment -->
+                        <div class="character-payment-section" id="character-payment-section">
+                            <h3>Payment & Delivery</h3>
+                            <div class="character-selectors">
+                                <div class="character-selector">
+                                    <label>Pay with Character:</label>
+                                    <select id="payment-character-select" class="character-dropdown">
+                                        <option value="">Select character to pay...</option>
+                                    </select>
+                                    <div class="character-gold-display" id="character-gold-display" style="display: none;">
+                                        <span class="gold-amount">
+                                            <span class="gold-icon">🪙</span>
+                                            <span id="character-gold-amount">0g 0s 0c</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="character-selector">
+                                    <label>Deliver to Character:</label>
+                                    <select id="recipient-character-select" class="character-dropdown">
+                                        <option value="">Select character to receive item...</option>
+                                    </select>
+                                    <div class="recipient-info" id="recipient-info" style="display: none;">
+                                        <span class="recipient-name" id="recipient-name"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Shop Categories -->
+                        <div class="shop-categories" id="shop-categories">
+                            <h3>Categories</h3>
+                            <div class="category-tabs" id="category-tabs">
+                                <!-- Will be populated dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Shop Items Grid -->
+                        <div class="shop-items-section" id="shop-items-section">
+                            <div class="shop-items-grid" id="shop-items-grid">
+                                <!-- Will be populated dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Purchase History -->
+                        <div class="purchase-history-section" id="purchase-history-section">
+                            <h3>Recent Purchases</h3>
+                            <div class="purchase-history" id="purchase-history">
+                                <!-- Will be populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shop Purchase Confirmation Modal -->
+                <div class="modal" id="shop-purchase-modal" style="display: none;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Confirm Purchase</h2>
+                            <button class="close-btn" id="close-purchase-modal">&times;</button>
+                        </div>
+                        <div class="modal-body" id="purchase-modal-body">
+                            <div class="purchase-confirmation">
+                                <div class="item-details">
+                                    <h4 id="purchase-item-name">Item Name</h4>
+                                    <p id="purchase-item-description">Item description</p>
+                                </div>
+                                <div class="purchase-details">
+                                    <div class="purchase-row">
+                                        <span>Price:</span>
+                                        <span class="price-display" id="purchase-price">0g</span>
+                                    </div>
+                                    <div class="purchase-row">
+                                        <span>Paying Character:</span>
+                                        <span id="purchase-character">None selected</span>
+                                    </div>
+                                    <div class="purchase-row">
+                                        <span>Character Gold:</span>
+                                        <span id="purchase-character-gold">0g 0s 0c</span>
+                                    </div>
+                                    <div class="purchase-row">
+                                        <span>Receiving Character:</span>
+                                        <span id="purchase-recipient">None selected</span>
+                                    </div>
+                                </div>
+                                <div class="purchase-actions">
+                                    <button class="btn btn-secondary" id="cancel-purchase">Cancel</button>
+                                    <button class="btn btn-primary" id="confirm-purchase">Purchase</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Character Detail Modal -->
+                <div class="modal" id="character-detail-modal" style="display: none;">
+                    <div class="modal-content character-detail-content">
+                        <div class="modal-header">
+                            <h2 class="character-detail-name" id="character-detail-name">Character Details</h2>
+                            <button class="close-btn" id="close-character-detail">&times;</button>
+                        </div>
+                        <div class="modal-body" id="character-detail-body">
+                            <div class="character-detail-loading">
+                                <div class="spinner"></div>
+                                <p>Loading character details...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News View -->
+                <div class="view" id="news-view" style="display: none;">
+                    <div class="news-content">
+                        <h1>News & Announcements</h1>
+                        <div class="news-list" id="news-list">
+                            <!-- Will be populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Updates View -->
+                <div class="view" id="updates-view" style="display: none;">
+                    <div class="updates-content">
+                        <h1>Game Updates</h1>
+                        <div class="update-status" id="update-status">
+                            <p>Checking for updates...</p>
+                        </div>
+                        <div class="update-progress" id="update-progress" style="display: none;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+                            <p class="progress-text" id="progress-text">0%</p>
+                            <p class="progress-status" id="progress-status">Preparing...</p>
+                        </div>
+                        <button class="btn btn-primary" id="check-updates-btn">Check for Updates</button>
+                    </div>
+                </div>
+
+                <!-- Settings View -->
+                <div class="view" id="settings-view" style="display: none;">
+                    <div class="settings-content">
+                        <h1>Settings</h1>
+                        <form id="settings-form">
+                            <div class="settings-section">
+                                <h2>Game Settings</h2>
+                                <div class="form-group">
+                                    <label for="game-path">WoW Installation Path</label>
+                                    <div class="path-input">
+                                        <input type="text" id="game-path" name="gamePath" readonly>
+                                        <button type="button" class="btn btn-secondary" id="browse-btn">Browse</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="settings-section">
+                                <h2>Launcher Settings</h2>
+                                <div class="form-group checkbox">
+                                    <label>
+                                        <input type="checkbox" id="auto-update" name="autoUpdate">
+                                        Automatically download game updates
+                                    </label>
+                                </div>
+                                <div class="form-group checkbox">
+                                    <label>
+                                        <input type="checkbox" id="launch-startup" name="launchOnStartup">
+                                        Launch on system startup
+                                    </label>
+                                </div>
+                                <div class="form-group checkbox">
+                                    <label>
+                                        <input type="checkbox" id="auto-check-updates" name="autoCheckUpdates">
+                                        Automatically check for launcher updates
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="settings-section">
+                                <h2>Launcher Updates</h2>
+                                <div class="update-check-section">
+                                    <div class="update-check-info">
+                                        <div>
+                                            <strong>Current Version:</strong>
+                                            <span class="version-info" id="current-version">Loading...</span>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary check-update-btn" id="manual-update-check">
+                                            <i class="fas fa-sync"></i> Check Now
+                                        </button>
+                                    </div>
+                                    <div id="update-check-status" class="update-status" style="display: none;">
+                                        Status will appear here...
+                                    </div>
+                                    <!-- NEW: Execution Policy Bypass Info -->
+                                    <div class="update-system-info" style="margin-top: 15px; padding: 10px; background: rgba(76, 175, 80, 0.1); border-radius: 6px; border-left: 4px solid #4CAF50;">
+                                        <div style="display: flex; align-items: center; margin-bottom: 5px;">
+                                            <span style="margin-right: 8px;">🛡️</span>
+                                            <strong>Advanced Update System Active</strong>
+                                        </div>
+                                        <p style="font-size: 12px; margin: 0; color: #666;">
+                                            Using execution policy bypass with 5 installation methods for maximum compatibility.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Save Settings</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/app.js"></script>
+</body>
+</html>
