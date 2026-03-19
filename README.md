@@ -1,6 +1,12 @@
-# WoW 3.3.5 AzerothCore Launcher
+<div align="center">
+  <img src="launcher/assets/icon.png" alt="AzerothCore Launcher" width="120" />
 
-A full-featured, custom launcher system for WoW 3.3.5a private servers running AzerothCore. Includes a Windows desktop launcher for players, a backend API server, and a web-based admin tool for server operators.
+  # WoW 3.3.5 AzerothCore Launcher
+
+  [![CodeFactor](https://www.codefactor.io/repository/github/tmfaze/azerothcore-launcher/badge)](https://www.codefactor.io/repository/github/tmfaze/azerothcore-launcher)
+
+  A full-featured, custom launcher system for WoW 3.3.5a private servers running AzerothCore. Includes a Windows desktop launcher for players, a backend API server, and a web-based admin tool for server operators.
+</div>
 
 ---
 
